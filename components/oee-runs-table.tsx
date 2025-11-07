@@ -103,4 +103,19 @@ export function OeeRunsTable() {
           <tbody>
             {rows.map((r) => (
               <tr key={r.id} className="border-t">
-                <td className="p-2">{r
+                <td className="p-2">{r.date}</td>
+                <td className="p-2">{nameOfProcess(r.processId)}</td>
+                <td className="p-2 text-center">{(r.availability * 100).toFixed(1)}</td>
+                <td className="p-2 text-center">{(r.performance * 100).toFixed(1)}</td>
+                <td className="p-2 text-center">{(r.quality * 100).toFixed(1)}</td>
+                <td className="p-2 text-center font-semibold">{(r.oee * 100).toFixed(1)}</td>
+                <td className="p-2 text-center">{r.totalCount}</td>
+                <td className="p-2 text-center">{r.rejectCount}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
