@@ -97,4 +97,108 @@ export function OeeWizard() {
 
         <Label>Proceso</Label>
         <Select value={processId} onChange={setProcessId}>
-          {db.pro
+          {db.processes.map((p) => (
+            <Option key={p.id} value={p.id}>
+              {p.name}
+            </Option>
+          ))}
+        </Select>
+
+        <Label className="mt-3">Fecha</Label>
+        <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+
+        <Label className="mt-3">Receta (opcional)</Label>
+        <Select value={recipeId} onChange={setRecipeId}>
+          <Option value="">—</Option>
+          {db.recipes.map((r) => (
+            <Option key={r.id} value={r.id}>
+              {r.name}
+            </Option>
+          ))}
+        </Select>
+
+        {recipeId && (
+          <>
+            <Label className="mt-3">Unidades producidas</Label>
+            <Input
+              type="number"
+              value={producedUnits}
+              onChange={(e) => setProducedUnits(Number(e.target.value))}
+            />
+          </>
+        )}
+      </div>
+
+      {/* Panel 2 */}
+      <div className="rounded-2xl bg-white p-4 shadow">
+        <h3 className="mb-3 text-lg font-semibold">2) Tiempos (min)</h3>
+
+        <Label>Planificado</Label>
+        <Input
+          type="number"
+          value={planned}
+          onChange={(e) => setPlanned(Number(e.target.value))}
+        />
+
+        <Label className="mt-3">Paros</Label>
+        <Input type="number" value={down} onChange={(e) => setDown(Number(e.target.value))} />
+
+        <div className="mt-3 rounded-xl bg-slate-50 p-2 text-sm">
+          RunTime: <b>{runTime}</b> min
+        </div>
+      </div>
+
+      {/* Panel 3 */}
+      <div className="rounded-2xl bg-white p-4 shadow">
+        <h3 className="mb-3 text-lg font-semibold">3) Rendimiento & Calidad</h3>
+
+        <Label>Ideal Cycle (seg/unidad)</Label>
+        <Input
+          type="number"
+          value={idealCycle}
+          onChange={(e) => setIdealCycle(Number(e.target.value))}
+        />
+
+        <div className="mt-3 grid grid-cols-2 gap-3">
+          <div>
+            <Label>Producción total</Label>
+            <Input
+              type="number"
+              value={total}
+              onChange={(e) => setTotal(Number(e.target.value))}
+            />
+          </div>
+
+          <div>
+            <Label>Rechazos</Label>
+            <Input
+              type="number"
+              value={reject}
+              onChange={(e) => setReject(Number(e.target.value))}
+            />
+          </div>
+        </div>
+
+        <div className="mt-3 grid grid-cols-3 gap-2 text-sm">
+          <div className="rounded-xl bg-slate-50 p-2">
+            A: <b>{(A * 100).toFixed(1)}%</b>
+          </div>
+          <div className="rounded-xl bg-slate-50 p-2">
+            P: <b>{(P * 100).toFixed(1)}%</b>
+          </div>
+          <div className="rounded-xl bg-slate-50 p-2">
+            Q: <b>{(Q * 100).toFixed(1)}%</b>
+          </div>
+        </div>
+
+        <div className="mt-2 rounded-xl bg-blue-50 p-2 text-center text-lg font-semibold">
+          OEE {(OEE * 100).toFixed(1)}%
+        </div>
+
+        <Button className="mt-3 w-full" onClick={register}>
+          Registrar OEE
+        </Button>
+      </div>
+    </div>
+  );
+}
