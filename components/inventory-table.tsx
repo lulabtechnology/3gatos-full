@@ -9,21 +9,21 @@ export function InventoryTable() {
   const [filter, setFilter] = useState('');
   const [mov, setMov] = useState({
     productId: '',
-    type: 'IN' as 'IN' | 'OUT' | 'ADJ',
+    type: 'IN' as 'IN'|'OUT'|'ADJ',
     quantity: 0,
-    reason: '',
+    reason: ''
   });
 
   const groups = useMemo(() => {
     const all = db.products.filter(
-      (p) =>
+      p =>
         p.name.toLowerCase().includes(filter.toLowerCase()) ||
         p.sku.toLowerCase().includes(filter.toLowerCase())
     );
     return {
-      EN_STOCK: all.filter((p) => p.status === 'EN_STOCK').length,
-      BAJO: all.filter((p) => p.status === 'BAJO').length,
-      FALTANTE: all.filter((p) => p.status === 'FALTANTE').length,
+      EN_STOCK: all.filter(p => p.status === 'EN_STOCK').length,
+      BAJO: all.filter(p => p.status === 'BAJO').length,
+      FALTANTE: all.filter(p => p.status === 'FALTANTE').length,
       list: all,
     };
   }, [db.products, filter]);
@@ -115,9 +115,7 @@ export function InventoryTable() {
                 <td className="p-2 text-center">
                   <button
                     className="rounded-xl bg-slate-100 px-2 py-1 text-xs"
-                    onClick={() =>
-                      setMov((m) => ({ ...m, productId: p.id }))
-                    }
+                    onClick={() => setMov((m) => ({ ...m, productId: p.id }))}
                   >
                     Historial / Movimiento
                   </button>
@@ -137,7 +135,10 @@ export function InventoryTable() {
               className="rounded-xl border px-3 py-2 text-sm"
               value={mov.type}
               onChange={(e) =>
-                setMov({ ...mov, type: e.target.value as 'IN' | 'OUT' | 'ADJ' })
+                setMov({
+                  ...mov,
+                  type: e.target.value as 'IN' | 'OUT' | 'ADJ',
+                })
               }
             >
               <option value="IN">Entrada (IN)</option>
